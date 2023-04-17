@@ -42,7 +42,8 @@ class StoryViewControllerVM {
 }
 extension StoryViewControllerVM: StoryViewControllerVMCellAction {
     func showCellDataAction(cell: storyCVCProtocol ,indexPath: IndexPath) {
-        let viewModel:storyCVCM = storyCVCM.init(storyModel: getCellFromViewModel(indexPath: indexPath))
+        var viewModel:storyCVCM = storyCVCM.init(storyModel: getCellFromViewModel(indexPath: indexPath))
+        viewModel.isAnimating = true
         cell.showCellDataWithCallback(viewModel: viewModel) { [weak self] userStoryCellActionCallBack in
             let index = userStoryCellActionCallBack.currentStoryIndex
             let storiesCount:Int? = userStoryCellActionCallBack.storiesCount
@@ -51,12 +52,13 @@ extension StoryViewControllerVM: StoryViewControllerVMCellAction {
                 print("callback left Click")
                  if let  count = storiesCount {
                     print("index and count ",index, count)
-                    if index-1 < 0 {
-                       
-                        print("moving to back story")
-                        self?.delegate?.upadateUserStory(type: .leftClick, indexPath: indexPath)
-
-                    }
+                     self?.delegate?.upadateUserStory(type: .leftClick, indexPath: indexPath)
+//                    if index-1 < 0 {
+//                       
+//                        print("moving to back story")
+//                        self?.delegate?.upadateUserStory(type: .leftClick, indexPath: indexPath)
+//
+//                    }
                 }
                
                 break

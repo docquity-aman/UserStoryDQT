@@ -27,8 +27,6 @@ class StoryModel {
     let imageView: String
     var stories: [String] = []
     var typedStories: [TypedStroies] = []
-//    var multiStories
-//    var typedStories: [String:String]
     
     init(name: String, id: Int, imageView: String, stories:[String],typedStories:[TypedStroies]) {
         self.name = name

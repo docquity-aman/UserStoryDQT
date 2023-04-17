@@ -40,9 +40,6 @@ class StoryViewController: UIViewController {
         self.storyView.collectionView.delegate = self
         self.storyView.collectionView.register(storyCVC.self, forCellWithReuseIdentifier: storyCVC.identifier)
         print("Lol",viewModel.userStories?.count)
-        
-        
-        
     }
     
     
@@ -59,9 +56,6 @@ extension StoryViewController : UICollectionViewDelegate,UICollectionViewDataSou
             return UICollectionViewCell()
         }
         viewModel.showCellDataAction(cell: cell,indexPath: indexPath)
-        cell.startAnimation()
-        
-
         return cell
 
     }
@@ -70,20 +64,18 @@ extension StoryViewController : UICollectionViewDelegate,UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-      if let startWithUserIndex = self.startWithUserIndex {
-            print("startWithUserIndex",startWithUserIndex.item)
-            scrollToNeededCell(indexPath: startWithUserIndex)
-          self.startWithUserIndex = nil
-        }
+        if let startWithUserIndex = self.startWithUserIndex {
+              print("startWithUserIndex",startWithUserIndex.item)
+              scrollToNeededCell(indexPath: startWithUserIndex)
+            self.startWithUserIndex = nil
+          }
     }
-  
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: storyCVC, forItemAt indexPath: IndexPath) {
-        cell.isAnimating = false
-        for i in cell.progressViewsArray {
-            i.setProgress(0, animated: false)
-        }
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? storyCVC else {return}
+        cell.SPB.cancel()
+        cell.reloadInputViews()
     }
-}
+  }
 
 extension StoryViewController:StoryViewControllerDelegate {
     func upadateUserStory(type: userStoryActionType, indexPath: IndexPath) {
@@ -121,13 +113,13 @@ extension StoryViewController:StoryViewControllerDelegate {
     
     func scrollToNeededCell(indexPath: IndexPath){
         self.storyView.collectionView.isPagingEnabled = false
-       
         self.storyView.collectionView.scrollToItem(
             at: indexPath ,
             at: .centeredHorizontally,
             animated: true
         )
         self.storyView.collectionView.isPagingEnabled = true
+        
         
     }
   

@@ -11,34 +11,35 @@ import AVKit
 protocol storyCVCProtocol {
     func showCellData(_ viewModel: storyCVCM)
     func showCellDataWithCallback(viewModel: storyCVCM,
-                                    userStoryCellCallBack: @escaping ((userStoryCellActionCallBack) -> Void))
+                                  userStoryCellCallBack: @escaping ((userStoryCellActionCallBack) -> Void))
 }
 
 public struct userStoryCellActionCallBack {
     var type: userStoryActionType
     var currentStoryIndex: Int
     var storiesCount: Int
-//    var timer: Timer
+    var shouldChangeUserStory: Bool = false
+    //    var timer: Timer
     
 }
 enum userStoryActionType {
-   case rightClick
-   case leftClick
+    case rightClick
+    case leftClick
 }
 
 
-class storyCVC: UICollectionViewCell {
+class storyCVC: UICollectionViewCell, UIGestureRecognizerDelegate {
     static let identifier = "storyCVC"
     private var userStoryCellCallBack: ((userStoryCellActionCallBack) -> Void)!
     var cellViewModel:storyCVCM?{
-           didSet{
-               configureData()
-               addProgressBars()
-               print("<<<>>>cell setup")
-           }
-       }
+        didSet{
+            configureData()
+            configureProgressView()
+            print("<<<>>>cell setup")
+        }
+    }
     
-
+    
     lazy var stackProgressView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
@@ -47,7 +48,6 @@ class storyCVC: UICollectionViewCell {
         sv.spacing = 20
         sv.backgroundColor = .black
         sv.translatesAutoresizingMaskIntoConstraints = false
-       
         return sv
     }()
     
@@ -62,7 +62,7 @@ class storyCVC: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-   
+    
     let bodyImageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -74,24 +74,53 @@ class storyCVC: UICollectionViewCell {
         videoView.translatesAutoresizingMaskIntoConstraints = false
         return videoView
     }()
-    var progressViewsArray: [UIProgressView] = []
     var player: AVPlayer!
-    
     let imageLabelStackView : UIStackView = UIStackView()
     var nameLabel:UILabel = UILabel()
     var imageView: UIImageView = UIImageView()
     var currentIndex:Int = 0// index of the currently animating progress view
-
     internal var timer: Timer?
     var isAnimating:Bool = false {
-        didSet { stop()
-            
+        didSet {
+            SPB.startAnimation()
+            SPB.isPaused = false
         }
     }
+    var SPB: SegmentedProgressBar!
     
     // Override the init(frame:) method to set up the cell's views and constraints.
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureView()
+        isAnimating = ((cellViewModel?.isAnimating) != nil)
+    }
+    
+    override func prepareForReuse() {
+        print("call Garbage collector")
+        if isAnimating {
+            
+            isAnimating = false
+            self.SPB.cancel()
+            self.SPB.isPaused = true
+            resetPlayer()
+        }
+        else {
+            isAnimating = true
+        }
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("Cell stop")
+    }
+    
+}
+extension storyCVC {
+    func configureView() {
         currentIndex = cellViewModel?.storyIndex ?? 0
         addSubview(bodyView)
         bodyView.addSubview(bodyImageView)
@@ -102,44 +131,33 @@ class storyCVC: UICollectionViewCell {
         configureImageLabelStackView()
         configureTapGesture()
         installConstraints()
-        addProgressBars()
-        
-
+        configureProgressView()
+        configureLongPress()
     }
-   
-    override func prepareForReuse() {
-        print("call Garbage collector")
-        timer?.invalidate()
-        super.prepareForReuse()
-        for i in stackProgressView.arrangedSubviews {
-            print(i)
-            i.removeFromSuperview()
-            timer?.invalidate()
+    
+    func configureProgressView() {
+        stackProgressView.layoutMargins = UIEdgeInsets(top: 0, left: 10.0, bottom: 0, right: 10.0)
+        stackProgressView.backgroundColor = .yellow
+        guard let segmentCount = cellViewModel?.storyModel?.typedStories.count  else{
+            return
         }
+        SPB = SegmentedProgressBar(numberOfSegments: segmentCount, duration: 10)
         
-        progressViewsArray = []
+        SPB.delegate = self
+        SPB.topColor = UIColor.white
+        SPB.bottomColor = UIColor.white.withAlphaComponent(0.25)
+        SPB.padding = 5
+        SPB.isPaused = true
+        if #available(iOS 11.0, *) {
+            SPB.frame = CGRect(x: 18, y:0, width: self.frame.width - 40, height: 5)
+        } else {
+            // Fallback on earlier versions
+            SPB.frame = CGRect(x: 18, y: 15, width: self.frame.width - 35, height: 3)
+        }
+        stackProgressView.addSubview(SPB)
+        stackProgressView.bringSubviewToFront(SPB)
         
-        if isAnimating {
-
-                 isAnimating = false
-             }
-             else {
-                 isAnimating = true
-             }
-       
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    deinit {
-        print("Cell stop")
-        stop()
-    }
-    
-}
-extension storyCVC {
     
     func configureImageLabelStackView() {
         
@@ -150,10 +168,10 @@ extension storyCVC {
         imageLabelStackView.distribution = .fill
         imageLabelStackView.spacing = 20
         imageLabelStackView.backgroundColor = .clear
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleToFill
         imageView.layer.cornerRadius = 10
-       
         nameLabel.text = "Your label text"
         nameLabel.font = UIFont.systemFont(ofSize: 18.0)
         
@@ -165,10 +183,30 @@ extension storyCVC {
         imageLabelStackView.translatesAutoresizingMaskIntoConstraints = false
         headerView.translatesAutoresizingMaskIntoConstraints = false
         
-    
+        
         
     }
-    
+    func configureLongPress(){
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        self.bodyVideoView.addGestureRecognizer(lpgr)
+
+    }
+    //MARK: - UILongPressGestureRecognizer Action -
+        @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+            print("<<<>>> longPress detected")
+            if gestureReconizer.state != UIGestureRecognizer.State.ended {
+                //When lognpress is start or running
+                player.pause()
+            }
+            else {
+                //When lognpress is finish
+                player.play()
+            }
+        }
+
     func configureTapGesture(){
         bodyImageView.isUserInteractionEnabled = true
         let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -177,8 +215,8 @@ extension storyCVC {
         videoTapGesture.numberOfTapsRequired = 1
         bodyImageView.addGestureRecognizer(imageTapGesture)
         bodyVideoView.addGestureRecognizer(videoTapGesture)
-       
-
+        
+        
     }
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         let location = gesture.location(in: bodyImageView)
@@ -186,24 +224,13 @@ extension storyCVC {
         
         if location.x <= touchAreaWidth {
             print("Left area touched")
-            if let story = cellViewModel?.getStoryImageVideoView(type: .leftClick, currentIndex: (cellViewModel?.storyIndex)!) {
-                print("update story view started")
-                updateStoryView(story: story)
-            }
-            let callBack = userStoryCellActionCallBack.init(type: .leftClick,currentStoryIndex: cellViewModel?.storyIndex ?? 0, storiesCount: cellViewModel?.typedStories.count ?? 0)
-            userStoryCellCallBack(callBack)
-            
-            
-        } else if location.x >= (self.bodyImageView.frame.size.width - touchAreaWidth) {
+                SPB.rewind()
+        }
+        
+        else if location.x >= (self.bodyImageView.frame.size.width - touchAreaWidth) {
             print("Right area touched")
-            let callBack = userStoryCellActionCallBack.init(type: .rightClick,currentStoryIndex: cellViewModel?.storyIndex ?? 0, storiesCount: cellViewModel?.typedStories.count ?? 0)
-            userStoryCellCallBack(callBack)
-            
-            if  let story = cellViewModel?.getStoryImageVideoView(type: .rightClick, currentIndex: (cellViewModel?.storyIndex)!){
-                print("update story view started")
-                updateStoryView(story: story)
-                
-            }
+         
+            SPB.skip()
         } else {
             print("Ignore in-between touch.")
         }
@@ -211,22 +238,31 @@ extension storyCVC {
         
     }
     
+    
     func updateStoryView(story: TypedStroies) {
         print("<<<>>>",story.type," ",story.value)
+    
         if story.type == "image" {
             print("<<<>>>Updating Image")
             bodyImageView.isHidden = false
             bodyVideoView.isHidden =  true
+            
             bodyImageView.image = UIImage(named: story.value)
-
+            
         } else if story.type == "video" {
             print("<<<>>>Updating Video")
             bodyImageView.isHidden =  true
             bodyVideoView.isHidden =  false
             playVideoWithFileName(story.value, ofType: "mp4")
 
+            
         }
         
+        
+    }
+    
+    func changeUserStory(currentIndex: Int){
+       return
         
     }
 
@@ -253,13 +289,13 @@ extension storyCVC {
             stackProgressView.leadingAnchor.constraint(equalTo: bodyView.leadingAnchor),
             stackProgressView.topAnchor.constraint(equalTo:bodyView.topAnchor ,constant: 40),
             stackProgressView.trailingAnchor.constraint(equalTo: bodyView.trailingAnchor),
-         
+            
         ])
         NSLayoutConstraint.activate([
             headerView.leadingAnchor.constraint(equalTo: bodyView.leadingAnchor),
             headerView.topAnchor.constraint(equalTo:stackProgressView.bottomAnchor ),
             headerView.trailingAnchor.constraint(equalTo: bodyView.trailingAnchor),
-         
+            
         ])
         NSLayoutConstraint.activate([
             imageLabelStackView.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 0),
@@ -270,43 +306,20 @@ extension storyCVC {
             headerView.heightAnchor.constraint(equalToConstant: 80.0)
         ])
     }
-    
-    func addProgressBars() {
-        
-        stackProgressView.layoutMargins = UIEdgeInsets(top: 0, left: 10.0, bottom: 0, right: 10.0)
-        stackProgressView.isLayoutMarginsRelativeArrangement = true
-        guard let stories =  cellViewModel?.storyModel?.typedStories else{
-            return
-        }
-        for i in stories {
-            print(i)
-            let view = UIProgressView()
-            view.progressViewStyle = .bar
-            view.progressTintColor = .blue
-            view.trackTintColor = .white
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.heightAnchor.constraint(equalToConstant: 5).isActive = true
-            progressViewsArray.append(view)
-            progressViewsArray.forEach { stackProgressView.addArrangedSubview($0) }
-            layoutIfNeeded()
-            
-        
-        }
-         
-    }
-    
 }
 
 extension storyCVC {
     func configureData() {
-      
+        
         nameLabel.text = cellViewModel?.storyModel?.name
         imageView.image = UIImage (named: (cellViewModel?.storyModel!.imageView)!)
         bodyVideoView.isHidden = true
         if let story:TypedStroies = cellViewModel?.storyModel?.typedStories.first{
             updateStoryView(story: story)
         }
-
+        
+        
+        
     }
 }
 extension storyCVC :storyCVCProtocol {
@@ -316,9 +329,8 @@ extension storyCVC :storyCVCProtocol {
         
     }
     
-    
     func showCellDataWithCallback(viewModel: storyCVCM,
-                                    userStoryCellCallBack: @escaping ((userStoryCellActionCallBack) -> Void)) {
+                                  userStoryCellCallBack: @escaping ((userStoryCellActionCallBack) -> Void)) {
         self.userStoryCellCallBack = userStoryCellCallBack
         cellViewModel = viewModel
         configureData()
@@ -328,27 +340,59 @@ extension storyCVC :storyCVCProtocol {
 
 extension storyCVC {
     //update video View
-    
     fileprivate func addPlayerToView(_ view: UIView) {
-           player = AVPlayer()
-           let playerLayer = AVPlayerLayer(player: player)
-           playerLayer.frame = self.bounds
-           playerLayer.videoGravity = .resizeAspectFill
-           view.layer.addSublayer(playerLayer)
+        player = AVPlayer()
+        let playerLayer = AVPlayerLayer(player: player)
+        playerLayer.frame = self.bounds
+        playerLayer.videoGravity = .resizeAspectFill
+        view.layer.addSublayer(playerLayer)
         NotificationCenter.default.addObserver(self, selector: #selector(playerEndPlay), name: .AVPlayerItemDidPlayToEndTime, object: nil)
-       }
+    }
     func playVideoWithFileName(_ fileName: String, ofType type:String) {
         print("playing",fileName)
-          guard let filePath = Bundle.main.path(forResource: fileName, ofType: type) else { return }
-          let videoURL = URL(fileURLWithPath: filePath)
-          let playerItem = AVPlayerItem(url: videoURL)
-          player?.replaceCurrentItem(with: playerItem)
-          player?.play()
-      }
+        resetPlayer()
+        addPlayerToView(bodyVideoView)
+        guard let filePath = Bundle.main.path(forResource: fileName, ofType: type) else { return }
+        let videoURL = URL(fileURLWithPath: filePath)
+        let playerItem = AVPlayerItem(url: videoURL)
+        player?.replaceCurrentItem(with: playerItem)
+        player?.play()
+    }
     @objc func playerEndPlay() {
-          print("Player ends playing video")
-      }
+        print("Player ends playing video")
+    }
+    private func resetPlayer() {
+        if player != nil {
+            player.pause()
+            player.replaceCurrentItem(with: nil)
+            player = nil
+        }
+    }
+
 }
 
 
+extension storyCVC : SegmentedProgressBarDelegate {
+    func segmentedProgressBarChangedIndex(index: Int) {
+        print("change Story",index)
+        if let story =  cellViewModel?.getTypedStories(index: index){
+            resetPlayer()
+            print("update story")
+            currentIndex = index
+            updateStoryView(story: story)
+            
+        }
+        
+        return
+    }
+    
+    func segmentedProgressBarFinished() {
+        print("<<<Finished")
+        let callBack = userStoryCellActionCallBack.init(type: .rightClick,currentStoryIndex: cellViewModel?.storyIndex ?? 0, storiesCount: cellViewModel?.typedStories.count ?? 0)
+        userStoryCellCallBack(callBack)
+        return
+    }
+    
+    
+}
 

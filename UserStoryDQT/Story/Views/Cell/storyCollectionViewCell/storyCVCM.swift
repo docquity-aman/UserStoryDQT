@@ -66,6 +66,12 @@ class storyCVCM {
         }
     }
     
+    func getTypedStories(index:Int?) -> TypedStroies? {
+        guard let index = index else {return nil}
+        self.storyIndex = index
+            return typedStories[index]
+    }
+    
     
     
     
