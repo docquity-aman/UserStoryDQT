@@ -10,12 +10,14 @@ class storyCVCM {
     let storyModel: StoryModel?
     var storyIndex:Int?
     var stories: [String] = []
+    var typedStories: [TypedStroies ] = []
     var isAnimating:Bool = false
     init(storyModel: StoryModel?) {
        
         self.storyModel = storyModel
         storyIndex = 0
         stories = getStories()
+        typedStories = getTypedStories()
     
     }
     func getImage() -> String {
@@ -32,16 +34,25 @@ class storyCVCM {
         return stories
     }
     
-    func updateImageView(type: userStoryActionType ,currentIndex:Int)  -> String?{
+    func getTypedStories() ->  [TypedStroies] {
+        guard let stories = self.storyModel?.typedStories else {
+            return []
+        }
+        return stories
+    }
+    
+    func getStoryImageVideoView(type: userStoryActionType ,currentIndex:Int)  -> TypedStroies?{
         switch type {
             
         case .rightClick:
-            print("storiesCount",getStories().count)
+            print("storiesCount",getTypedStories().count)
             print("indexCount",currentIndex)
-            if currentIndex >= getStories().count-1 {
+            if currentIndex >= getTypedStories().count - 1 {
                 return nil
             }
-            let story = getStories()[currentIndex+1]
+//            let story = getStories()[currentIndex+1]
+            let story = getTypedStories()[currentIndex + 1]
+            
             self.storyIndex = currentIndex + 1
             return story
             
@@ -49,7 +60,7 @@ class storyCVCM {
             if currentIndex <= 0 {
                 return nil
             }
-            let story = getStories()[currentIndex-1]
+            let story = getTypedStories()[currentIndex - 1]
             self.storyIndex = currentIndex - 1
             return story
         }

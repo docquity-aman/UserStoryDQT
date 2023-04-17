@@ -9,11 +9,9 @@ import Foundation
 class HomeViewModel {
     var storyModel:[StoryModel]? = []
     init() {
-        storyModel?.append(StoryModel(name: "Aaaaaa", id: 1, imageView: "car1", stories: ["image1","image2"]))
-        storyModel?.append(StoryModel(name: "Bbbbbb", id: 2, imageView: "car3", stories: ["image1","image2","image3"]))
-        storyModel?.append(StoryModel(name: "Cccccc", id: 3, imageView: "car2", stories: ["image1"]))
-        storyModel?.append(StoryModel(name: "Dddddd", id: 4, imageView: "car1", stories: ["image3","image4"]))
-        storyModel?.append(StoryModel(name: "Eeeeee", id: 5, imageView: "car2", stories: ["image"]))
+        storyModel?.append(StoryModel(name: "Aaaaaa", id: 1, imageView: "car1", stories: ["image1","image2"], typedStories: [TypedStroies.init(value: "video1", type: "video"),TypedStroies.init(value: "image3", type: "image")]))
+        storyModel?.append(StoryModel(name: "Eeeeee", id: 5, imageView: "car2", stories: ["image"], typedStories: [TypedStroies.init(value: "image1", type: "image"),TypedStroies.init(value: "video1", type: "video"),TypedStroies.init(value: "image3", type: "image")]))
+        
     }
     
     func getCellFromViewModel(indexPath: IndexPath) -> StoryModel? {
@@ -28,13 +26,26 @@ class StoryModel {
     let id: Int
     let imageView: String
     var stories: [String] = []
+    var typedStories: [TypedStroies] = []
 //    var multiStories
+//    var typedStories: [String:String]
     
-    init(name: String, id: Int, imageView: String, stories:[String]) {
+    init(name: String, id: Int, imageView: String, stories:[String],typedStories:[TypedStroies]) {
         self.name = name
         self.id = id
         self.imageView = imageView
         self.stories =  stories
+        self.typedStories = typedStories
     }
     
+}
+
+class TypedStroies {
+    let value : String
+    let type : String
+    
+    init(value: String, type: String) {
+        self.value = value
+        self.type = type
+    }
 }

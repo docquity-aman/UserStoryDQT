@@ -8,11 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		5930AC8C29E8405A00FDD4EF /* StoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5930AC8B29E8405A00FDD4EF /* StoryModel.swift */; };
+		5938CA6B29EC753F0091E5A2 /* SegmentedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5938CA6A29EC753F0091E5A2 /* SegmentedProgressBar.swift */; };
 		5951111C29E73FB200865C2D /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5951111B29E73FB200865C2D /* StoryView.swift */; };
 		5951111F29E7458700865C2D /* storyCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5951111E29E7458700865C2D /* storyCVC.swift */; };
 		5951112129E7A67900865C2D /* DCStoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5951112029E7A67900865C2D /* DCStoryHeaderView.swift */; };
 		5951112829E7F47E00865C2D /* StoryViewControllerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5951112729E7F47E00865C2D /* StoryViewControllerVM.swift */; };
 		5976E1EB29E7FA48008841E7 /* storyCVCM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5976E1EA29E7FA48008841E7 /* storyCVCM.swift */; };
+		5989B69029ED29C700BF7074 /* video1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5989B68F29ED29C700BF7074 /* video1.mp4 */; };
+		5989B6C229ED3CE000BF7074 /* storyCVC+progressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5989B6C129ED3CE000BF7074 /* storyCVC+progressBar.swift */; };
 		59A779A729E70A1500CFF51A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A779A629E70A1500CFF51A /* AppDelegate.swift */; };
 		59A779A929E70A1500CFF51A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A779A829E70A1500CFF51A /* SceneDelegate.swift */; };
 		59A779AB29E70A1500CFF51A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A779AA29E70A1500CFF51A /* ViewController.swift */; };
@@ -45,11 +48,14 @@
 
 /* Begin PBXFileReference section */
 		5930AC8B29E8405A00FDD4EF /* StoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryModel.swift; sourceTree = "<group>"; };
+		5938CA6A29EC753F0091E5A2 /* SegmentedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedProgressBar.swift; sourceTree = "<group>"; };
 		5951111B29E73FB200865C2D /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
 		5951111E29E7458700865C2D /* storyCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = storyCVC.swift; sourceTree = "<group>"; };
 		5951112029E7A67900865C2D /* DCStoryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCStoryHeaderView.swift; sourceTree = "<group>"; };
 		5951112729E7F47E00865C2D /* StoryViewControllerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryViewControllerVM.swift; sourceTree = "<group>"; };
 		5976E1EA29E7FA48008841E7 /* storyCVCM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = storyCVCM.swift; sourceTree = "<group>"; };
+		5989B68F29ED29C700BF7074 /* video1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video1.mp4; sourceTree = "<group>"; };
+		5989B6C129ED3CE000BF7074 /* storyCVC+progressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "storyCVC+progressBar.swift"; sourceTree = "<group>"; };
 		59A779A329E70A1500CFF51A /* UserStoryDQT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UserStoryDQT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59A779A629E70A1500CFF51A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		59A779A829E70A1500CFF51A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				5951111E29E7458700865C2D /* storyCVC.swift */,
+				5989B6C129ED3CE000BF7074 /* storyCVC+progressBar.swift */,
 				5976E1EA29E7FA48008841E7 /* storyCVCM.swift */,
 			);
 			path = storyCollectionViewCell;
@@ -115,6 +122,14 @@
 				5951112729E7F47E00865C2D /* StoryViewControllerVM.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5989B68E29ED296200BF7074 /* Videos */ = {
+			isa = PBXGroup;
+			children = (
+				5989B68F29ED29C700BF7074 /* video1.mp4 */,
+			);
+			path = Videos;
 			sourceTree = "<group>";
 		};
 		59A7799A29E70A1500CFF51A = {
@@ -140,6 +155,7 @@
 		59A779A529E70A1500CFF51A /* UserStoryDQT */ = {
 			isa = PBXGroup;
 			children = (
+				5989B68E29ED296200BF7074 /* Videos */,
 				59A779D929E7193900CFF51A /* Story */,
 				59A779A629E70A1500CFF51A /* AppDelegate.swift */,
 				59A779A829E70A1500CFF51A /* SceneDelegate.swift */,
@@ -192,6 +208,7 @@
 		59A779E829E7398500CFF51A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5938CA6A29EC753F0091E5A2 /* SegmentedProgressBar.swift */,
 				59A779D629E7111E00CFF51A /* Cell */,
 				5951111B29E73FB200865C2D /* StoryView.swift */,
 				5951112029E7A67900865C2D /* DCStoryHeaderView.swift */,
@@ -304,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				59A779B329E70A1800CFF51A /* LaunchScreen.storyboard in Resources */,
+				5989B69029ED29C700BF7074 /* video1.mp4 in Resources */,
 				59A779B029E70A1800CFF51A /* Assets.xcassets in Resources */,
 				59A779AE29E70A1500CFF51A /* Main.storyboard in Resources */,
 			);
@@ -339,8 +357,10 @@
 				5951112829E7F47E00865C2D /* StoryViewControllerVM.swift in Sources */,
 				5951112129E7A67900865C2D /* DCStoryHeaderView.swift in Sources */,
 				59A779A729E70A1500CFF51A /* AppDelegate.swift in Sources */,
+				5989B6C229ED3CE000BF7074 /* storyCVC+progressBar.swift in Sources */,
 				5930AC8C29E8405A00FDD4EF /* StoryModel.swift in Sources */,
 				59A779A929E70A1500CFF51A /* SceneDelegate.swift in Sources */,
+				5938CA6B29EC753F0091E5A2 /* SegmentedProgressBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

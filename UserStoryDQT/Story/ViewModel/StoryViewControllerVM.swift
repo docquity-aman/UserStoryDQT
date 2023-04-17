@@ -31,7 +31,7 @@ class StoryViewControllerVM {
     init(storyModel: StoryModel?, userStories: [StoryModel]?){
         self.userStories = userStories
         self.storyModel = storyModel
-        print("<<<>>",storyModel?.id ," ",storyModel?.name," ",storyModel?.imageView," ",storyModel?.stories)
+        print("<<<>>",storyModel?.id ," ",storyModel?.name," ",storyModel?.imageView," ",storyModel?.typedStories)
     }
  
     func getCellFromViewModel(indexPath: IndexPath) -> StoryModel? {
