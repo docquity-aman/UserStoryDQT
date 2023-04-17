@@ -56,6 +56,7 @@ extension StoryViewController : UICollectionViewDelegate,UICollectionViewDataSou
             return UICollectionViewCell()
         }
         viewModel.showCellDataAction(cell: cell,indexPath: indexPath)
+//        cell.SPB.startAnimation()
         return cell
 
     }
@@ -98,6 +99,7 @@ extension StoryViewController:StoryViewControllerDelegate {
         case .rightClick:
             if let userStoriesCount = viewModel.userStories?.count {
                 if indexPath.item >= userStoriesCount - 1 {
+                    self.dismiss(animated: true)
                     return
                 }
                 var nextIndexPath = indexPath
@@ -119,6 +121,7 @@ extension StoryViewController:StoryViewControllerDelegate {
             animated: true
         )
         self.storyView.collectionView.isPagingEnabled = true
+        
         
         
     }

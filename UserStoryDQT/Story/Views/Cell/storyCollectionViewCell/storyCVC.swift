@@ -35,7 +35,7 @@ class storyCVC: UICollectionViewCell, UIGestureRecognizerDelegate {
         didSet{
             configureData()
             configureProgressView()
-            print("<<<>>>cell setup")
+            isAnimating = true
         }
     }
     
@@ -102,7 +102,7 @@ class storyCVC: UICollectionViewCell, UIGestureRecognizerDelegate {
             isAnimating = false
             self.SPB.cancel()
             self.SPB.isPaused = true
-            resetPlayer()
+            
         }
         else {
             isAnimating = true
@@ -241,7 +241,7 @@ extension storyCVC {
     
     func updateStoryView(story: TypedStroies) {
         print("<<<>>>",story.type," ",story.value)
-    
+        resetPlayer()
         if story.type == "image" {
             print("<<<>>>Updating Image")
             bodyImageView.isHidden = false
@@ -316,8 +316,12 @@ extension storyCVC {
         bodyVideoView.isHidden = true
         if let story:TypedStroies = cellViewModel?.storyModel?.typedStories.first{
             updateStoryView(story: story)
+            
         }
-        
+//
+//        if let _: SegmentedProgressBar = self.SPB {
+//            isAnimating = true
+//        }
         
         
     }
@@ -375,6 +379,7 @@ extension storyCVC {
 extension storyCVC : SegmentedProgressBarDelegate {
     func segmentedProgressBarChangedIndex(index: Int) {
         print("change Story",index)
+        
         if let story =  cellViewModel?.getTypedStories(index: index){
             resetPlayer()
             print("update story")
