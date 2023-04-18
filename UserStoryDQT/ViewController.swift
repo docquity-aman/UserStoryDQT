@@ -77,11 +77,14 @@ extension ViewController: UICollectionViewDelegate,UICollectionViewDataSource,UI
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Selected ", indexPath.row)
-        let vc = storyboard?.instantiateViewController(withIdentifier: "Main") as! StoryViewController
-        vc.create(storyModel: (viewModel.storyModel?[indexPath.item])!,stories: viewModel.storyModel, indexPath: indexPath)
+//        let vc = storyboard?.instantiateViewController(withIdentifier: "Main") as! StoryViewController
+//        vc.create(storyModel: (viewModel.storyModel?[indexPath.item])!,stories: viewModel.storyModel, indexPath: indexPath)
 //        vc.modalPresentationStyle = .fullScreen
-
-        self.present(vc, animated: true)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ContentView") as! ContentViewController
+        vc.modalPresentationStyle = .overFullScreen
+        vc.pages = self.viewModel.storyModel!
+        vc.currentIndex = indexPath.row
+        self.present(vc, animated: true, completion: nil)
     
     }
     

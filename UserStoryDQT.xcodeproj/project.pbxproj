@@ -27,6 +27,9 @@
 		59A779CA29E70A1900CFF51A /* UserStoryDQTUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A779C929E70A1900CFF51A /* UserStoryDQTUITestsLaunchTests.swift */; };
 		59A779D829E7119100CFF51A /* homeCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A779D729E7119100CFF51A /* homeCVC.swift */; };
 		59A779E729E7342700CFF51A /* StoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A779E629E7342700CFF51A /* StoryViewController.swift */; };
+		59E1CB8729EE853600B6A973 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E1CB8529EE853600B6A973 /* ContentViewController.swift */; };
+		59E1CB8829EE853600B6A973 /* PreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E1CB8629EE853600B6A973 /* PreViewController.swift */; };
+		59E1CB8A29EE875100B6A973 /* PreViewControllerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E1CB8929EE875100B6A973 /* PreViewControllerVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,9 @@
 		59A779C929E70A1900CFF51A /* UserStoryDQTUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStoryDQTUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		59A779D729E7119100CFF51A /* homeCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeCVC.swift; sourceTree = "<group>"; };
 		59A779E629E7342700CFF51A /* StoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryViewController.swift; sourceTree = "<group>"; };
+		59E1CB8529EE853600B6A973 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
+		59E1CB8629EE853600B6A973 /* PreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreViewController.swift; sourceTree = "<group>"; };
+		59E1CB8929EE875100B6A973 /* PreViewControllerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreViewControllerVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				5951112729E7F47E00865C2D /* StoryViewControllerVM.swift */,
+				59E1CB8929EE875100B6A973 /* PreViewControllerVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -197,6 +204,7 @@
 		59A779D929E7193900CFF51A /* Story */ = {
 			isa = PBXGroup;
 			children = (
+				59E1CB8429EE853600B6A973 /* ViewControllers */,
 				5930AC8A29E8404300FDD4EF /* Model */,
 				5951112629E7F45400865C2D /* ViewModel */,
 				59A779E829E7398500CFF51A /* Views */,
@@ -214,6 +222,15 @@
 				5951112029E7A67900865C2D /* DCStoryHeaderView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		59E1CB8429EE853600B6A973 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				59E1CB8529EE853600B6A973 /* ContentViewController.swift */,
+				59E1CB8629EE853600B6A973 /* PreViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -354,12 +371,15 @@
 				5951111F29E7458700865C2D /* storyCVC.swift in Sources */,
 				59A779AB29E70A1500CFF51A /* ViewController.swift in Sources */,
 				59A779D829E7119100CFF51A /* homeCVC.swift in Sources */,
+				59E1CB8729EE853600B6A973 /* ContentViewController.swift in Sources */,
 				5951112829E7F47E00865C2D /* StoryViewControllerVM.swift in Sources */,
 				5951112129E7A67900865C2D /* DCStoryHeaderView.swift in Sources */,
 				59A779A729E70A1500CFF51A /* AppDelegate.swift in Sources */,
 				5989B6C229ED3CE000BF7074 /* storyCVC+progressBar.swift in Sources */,
 				5930AC8C29E8405A00FDD4EF /* StoryModel.swift in Sources */,
 				59A779A929E70A1500CFF51A /* SceneDelegate.swift in Sources */,
+				59E1CB8A29EE875100B6A973 /* PreViewControllerVM.swift in Sources */,
+				59E1CB8829EE853600B6A973 /* PreViewController.swift in Sources */,
 				5938CA6B29EC753F0091E5A2 /* SegmentedProgressBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -537,6 +557,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H689839E64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UserStoryDQT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -545,6 +566,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -565,6 +587,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H689839E64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UserStoryDQT/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -573,6 +596,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
