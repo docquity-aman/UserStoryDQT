@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5925084A29F171DB002F75CA /* AnimatedCollectionViewLayout-master in Resources */ = {isa = PBXBuildFile; fileRef = 5925084929F171DB002F75CA /* AnimatedCollectionViewLayout-master */; };
 		5930AC8C29E8405A00FDD4EF /* StoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5930AC8B29E8405A00FDD4EF /* StoryModel.swift */; };
 		5938CA6B29EC753F0091E5A2 /* SegmentedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5938CA6A29EC753F0091E5A2 /* SegmentedProgressBar.swift */; };
 		5951111C29E73FB200865C2D /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5951111B29E73FB200865C2D /* StoryView.swift */; };
@@ -30,6 +31,7 @@
 		59E1CB8729EE853600B6A973 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E1CB8529EE853600B6A973 /* ContentViewController.swift */; };
 		59E1CB8829EE853600B6A973 /* PreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E1CB8629EE853600B6A973 /* PreViewController.swift */; };
 		59E1CB8A29EE875100B6A973 /* PreViewControllerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E1CB8929EE875100B6A973 /* PreViewControllerVM.swift */; };
+		59F83D1D29F11DBE007E80DB /* video2.m3u8 in Resources */ = {isa = PBXBuildFile; fileRef = 59F83D1C29F11DBE007E80DB /* video2.m3u8 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5925084929F171DB002F75CA /* AnimatedCollectionViewLayout-master */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "AnimatedCollectionViewLayout-master"; sourceTree = "<group>"; };
 		5930AC8B29E8405A00FDD4EF /* StoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryModel.swift; sourceTree = "<group>"; };
 		5938CA6A29EC753F0091E5A2 /* SegmentedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedProgressBar.swift; sourceTree = "<group>"; };
 		5951111B29E73FB200865C2D /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
@@ -77,6 +80,7 @@
 		59E1CB8529EE853600B6A973 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		59E1CB8629EE853600B6A973 /* PreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreViewController.swift; sourceTree = "<group>"; };
 		59E1CB8929EE875100B6A973 /* PreViewControllerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreViewControllerVM.swift; sourceTree = "<group>"; };
+		59F83D1C29F11DBE007E80DB /* video2.m3u8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = video2.m3u8; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5925084829F17047002F75CA /* External */ = {
+			isa = PBXGroup;
+			children = (
+				5925084929F171DB002F75CA /* AnimatedCollectionViewLayout-master */,
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
 		5930AC8A29E8404300FDD4EF /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +146,7 @@
 		5989B68E29ED296200BF7074 /* Videos */ = {
 			isa = PBXGroup;
 			children = (
+				59F83D1C29F11DBE007E80DB /* video2.m3u8 */,
 				5989B68F29ED29C700BF7074 /* video1.mp4 */,
 			);
 			path = Videos;
@@ -204,6 +217,7 @@
 		59A779D929E7193900CFF51A /* Story */ = {
 			isa = PBXGroup;
 			children = (
+				5925084829F17047002F75CA /* External */,
 				59E1CB8429EE853600B6A973 /* ViewControllers */,
 				5930AC8A29E8404300FDD4EF /* Model */,
 				5951112629E7F45400865C2D /* ViewModel */,
@@ -338,6 +352,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				59A779B329E70A1800CFF51A /* LaunchScreen.storyboard in Resources */,
+				59F83D1D29F11DBE007E80DB /* video2.m3u8 in Resources */,
+				5925084A29F171DB002F75CA /* AnimatedCollectionViewLayout-master in Resources */,
 				5989B69029ED29C700BF7074 /* video1.mp4 in Resources */,
 				59A779B029E70A1800CFF51A /* Assets.xcassets in Resources */,
 				59A779AE29E70A1500CFF51A /* Main.storyboard in Resources */,
