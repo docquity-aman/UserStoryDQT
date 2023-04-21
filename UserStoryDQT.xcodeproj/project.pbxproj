@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5925084A29F171DB002F75CA /* AnimatedCollectionViewLayout-master in Resources */ = {isa = PBXBuildFile; fileRef = 5925084929F171DB002F75CA /* AnimatedCollectionViewLayout-master */; };
 		5930AC8C29E8405A00FDD4EF /* StoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5930AC8B29E8405A00FDD4EF /* StoryModel.swift */; };
 		5938CA6B29EC753F0091E5A2 /* SegmentedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5938CA6A29EC753F0091E5A2 /* SegmentedProgressBar.swift */; };
 		5951111C29E73FB200865C2D /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5951111B29E73FB200865C2D /* StoryView.swift */; };
@@ -52,7 +51,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5925084929F171DB002F75CA /* AnimatedCollectionViewLayout-master */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "AnimatedCollectionViewLayout-master"; sourceTree = "<group>"; };
 		5930AC8B29E8405A00FDD4EF /* StoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryModel.swift; sourceTree = "<group>"; };
 		5938CA6A29EC753F0091E5A2 /* SegmentedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedProgressBar.swift; sourceTree = "<group>"; };
 		5951111B29E73FB200865C2D /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
@@ -111,7 +109,6 @@
 		5925084829F17047002F75CA /* External */ = {
 			isa = PBXGroup;
 			children = (
-				5925084929F171DB002F75CA /* AnimatedCollectionViewLayout-master */,
 			);
 			path = External;
 			sourceTree = "<group>";
@@ -353,7 +350,6 @@
 			files = (
 				59A779B329E70A1800CFF51A /* LaunchScreen.storyboard in Resources */,
 				59F83D1D29F11DBE007E80DB /* video2.m3u8 in Resources */,
-				5925084A29F171DB002F75CA /* AnimatedCollectionViewLayout-master in Resources */,
 				5989B69029ED29C700BF7074 /* video1.mp4 in Resources */,
 				59A779B029E70A1800CFF51A /* Assets.xcassets in Resources */,
 				59A779AE29E70A1500CFF51A /* Main.storyboard in Resources */,
